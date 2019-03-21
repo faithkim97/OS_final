@@ -1,13 +1,21 @@
 // This checks the characters in the input against the assigned password
 
 public class CodeCracker {
-    private int inputPassword;
-    private int setPassword;
+    private String inputPassword;
+    private String setPassword;
 
 
-    public CodeCracker(int setPassword, int userInput){
+    public CodeCracker(String setPassword, String userInput){
         this.inputPassword = inputPassword;
         this.setPassword = setPassword;
+    }
+
+    public boolean returnGuess(){
+        return inputPassword.equals(setPassword);
+    }
+
+    public void setInputPassword(String newInput){
+        this.inputPassword = newInput;
     }
 
 
