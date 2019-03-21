@@ -15,11 +15,12 @@ public class Dictionary {
 
             try {
                 String currentLine = readDictionary.readLine();
-                while (currentLine != null) {
+                while (currentLine != null && index < 99172) {
                     dictionary[index] = currentLine;
                     currentLine = readDictionary.readLine();
                     index++;
                 }
+
             }
             catch (IOException e){
                 System.err.println("Couldn't read dictionary.");

@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60ba7dd1-b965-47c9-96cc-df35fd2762d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Dictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cheat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cheat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CodeCracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CodeCracker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GeneratePassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GeneratePassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dictionary.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,14 +32,13 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GeneratePassword.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+            <state relative-caret-position="135">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#172#173#0" expanded="true" />
                 <element signature="e#207#208#0" expanded="true" />
                 <element signature="e#1153#1154#0" expanded="true" />
                 <element signature="e#1195#1196#0" expanded="true" />
@@ -64,10 +59,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Dictionary.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="255">
+              <caret line="17" column="55" lean-forward="true" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#139#140#0" expanded="true" />
                 <element signature="e#167#168#0" expanded="true" />
                 <element signature="e#1015#1016#0" expanded="true" />
                 <element signature="e#1048#1049#0" expanded="true" />
@@ -76,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/CodeCracker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
+            <state relative-caret-position="305">
+              <caret line="57" column="69" selection-start-line="57" selection-start-column="69" selection-end-line="57" selection-end-column="69" />
               <folding>
                 <element signature="e#381#382#0" expanded="true" />
                 <element signature="e#437#438#0" expanded="true" />
@@ -96,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../CSC262-memfit-master/MemoryAllocation/src/GetFit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="163" column="7" selection-start-line="163" selection-start-column="7" selection-end-line="163" selection-end-column="90" />
+            <state relative-caret-position="329">
+              <caret line="153" column="79" lean-forward="true" selection-start-line="153" selection-start-column="79" selection-end-line="153" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,11 +116,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/Dictionary.java" />
         <option value="$PROJECT_DIR$/src/main/java/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/Cheat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/CodeCracker.java" />
         <option value="$PROJECT_DIR$/src/main/java/GeneratePassword.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Dictionary.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CodeCracker.java" />
       </list>
     </option>
   </component>
@@ -186,7 +182,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553191544631" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553192131409" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -286,6 +282,24 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout-to-restore>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Dictionary.java</url>
+          <line>22</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/GeneratePassword.java</url>
+          <line>15</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -305,38 +319,6 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../CSC262-memfit-master/MemoryAllocation/src/GetFit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="163" column="7" selection-start-line="163" selection-start-column="7" selection-end-line="163" selection-end-column="90" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Cheat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CodeCracker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
-          <folding>
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#765#766#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#1931#1932#0" expanded="true" />
-            <element signature="e#1976#1977#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -348,12 +330,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Dictionary.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/GeneratePassword.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#207#208#0" expanded="true" />
+            <element signature="e#1153#1154#0" expanded="true" />
+            <element signature="e#1195#1196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Cheat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Dictionary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="55" lean-forward="true" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#139#140#0" expanded="true" />
             <element signature="e#167#168#0" expanded="true" />
             <element signature="e#1015#1016#0" expanded="true" />
             <element signature="e#1048#1049#0" expanded="true" />
@@ -361,16 +364,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GeneratePassword.java">
+    <entry file="file://$PROJECT_DIR$/../CSC262-memfit-master/MemoryAllocation/src/GetFit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
+        <state relative-caret-position="329">
+          <caret line="153" column="79" lean-forward="true" selection-start-line="153" selection-start-column="79" selection-end-line="153" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#172#173#0" expanded="true" />
-            <element signature="e#207#208#0" expanded="true" />
-            <element signature="e#1153#1154#0" expanded="true" />
-            <element signature="e#1195#1196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CodeCracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="57" column="69" selection-start-line="57" selection-start-column="69" selection-end-line="57" selection-end-column="69" />
+          <folding>
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+            <element signature="e#1931#1932#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
           </folding>
         </state>
       </provider>

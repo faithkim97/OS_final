@@ -24,9 +24,9 @@ public class CodeCracker {
             if (!equalLength()) {
                 System.out.println("Incorrect input password length.");
             }
-            System.out.printf("You have placed %%.02f%% characters correctly!\n",percentagePlacedCorrectly());
+            System.out.printf("You have placed %.02f%% characters correctly!\n",percentagePlacedCorrectly());
                 // call percentage letters correct
-            System.out.printf("You have input %%.02f%% characters correctly!\n",percentageCorrectInput());
+            System.out.printf("You have input %.02f%% characters correctly!\n",percentageCorrectInput());
 
     }
 
@@ -55,6 +55,7 @@ public class CodeCracker {
                 }
             }
         }//endif
+
         return (counterSame/inputPassword.length)*100.00f;
     }
 
