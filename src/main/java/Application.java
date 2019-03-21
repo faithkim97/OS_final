@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Application {
+    String password = "";
     public static void main(String[] args) {
         System.out.println("Application started");
 
-        playGame ();
+        new Application().playGame();
 
         // Create scanner over user input:
 
@@ -12,7 +13,7 @@ public class Application {
         // the AI should we limit it to only dictionary words??
     }
 
-    public static void playGame(){
+    public void playGame(){
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Can you guess the password? Input you guess here: ");
@@ -20,9 +21,10 @@ public class Application {
 
         boolean play = true;
         GeneratePassword genPassword = new GeneratePassword();
-        String password = genPassword.getPassword();
+        password = genPassword.getPassword();
         CodeCracker cracker = new CodeCracker(password, input);
 
+        //need to change loop condition to be timer
         while (play){
             if (cracker.returnGuess()){
                 System.out.println("You cracked the password!");
@@ -30,11 +32,16 @@ public class Application {
                 continue;
             }
             else {
+                cracker.checkInputPassword();
                 System.out.println("Hmm you guessed incorrectly... try again: ");
                 cracker.setInputPassword(sc.nextLine());
             }
         }
 
+    }
+
+    public String getInputPassword(){
+        return password;
     }
 
 }
