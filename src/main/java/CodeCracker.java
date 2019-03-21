@@ -65,10 +65,13 @@ public class CodeCracker {
 
         for (int i = 0; i < setPassword.length; i++) {
             passwordArr[setPassword[i]]++;
+            System.out.println(passwordArr[setPassword[i]]);
+
         }
 
         for (int i = 0; i < inputPassword.length; i++) {
             if (passwordArr[inputPassword[i]] > 0){
+                System.out.println(inputPassword[i]);
                 passwordArr[inputPassword[i]] --;
                 counterSame ++;
             }

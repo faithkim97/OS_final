@@ -22,6 +22,7 @@ public class Application {
         boolean play = true;
         GeneratePassword genPassword = new GeneratePassword();
         password = genPassword.getPassword();
+        System.out.println(password);
         CodeCracker cracker = new CodeCracker(password, input);
 
         //need to change loop condition to be timer
