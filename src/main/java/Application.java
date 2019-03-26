@@ -1,51 +1,72 @@
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Application {
-    String password = "";
     public static void main(String[] args) {
         System.out.println("Application started");
 
         new Application().playGame();
 
-        // Create scanner over user input:
 
-        // ASK FAITH: if we let the user input a password in the game against
-        // the AI should we limit it to only dictionary words??
     }
 
-    public void playGame(){
+    public void playGame() {
+//        CountdownTimer timer = new CountdownTimer(60);
 
+
+
+        Timer timer = new Timer();
         Scanner sc = new Scanner(System.in);
         System.out.println("Can you guess the password? Input you guess here: ");
         String input = sc.nextLine();
 
         boolean play = true;
-        GeneratePassword genPassword = new GeneratePassword();
-        password = genPassword.getPassword();
-        System.out.println(password);
-        CodeCracker cracker = new CodeCracker(password, input);
+        GeneratePassword password = new GeneratePassword();
+        CodeChecker checker = new CodeChecker(password.getPassword(), input);
+        TimerTask task = createTimerTask();
+        timer.schedule(task, 5*1000); //count downs for 60 seconds
+//        long timeIntervalInSeconds = (task.scheduledExecutionTime() - System.currentTimeMillis())/1000;
 
-        //need to change loop condition to be timer
         while (play){
-            if (cracker.returnGuess()){
-                System.out.println("You cracked the password!");
-                play = false;
-                continue;
-            }
-            else {
-                cracker.checkInputPassword();
+            if (checker.checkPassword()) {
+                    System.out.println("You cracked the password!");
+                    play = false;
+                    continue;
+                } else {
+//                checker.checkInputPassword();
                 System.out.println("Hmm you guessed incorrectly... try again: ");
-                cracker.setInputPassword(sc.nextLine());
-            }
+                    float percentLengthCorrect = checker.percentageCorrectLength();
+                    System.out.printf("Percentage of input length: %.02f%%\n", percentLengthCorrect);
+                    if (checker.inputLengthMatchesPasswordLength()) {
+                        float percentPlacedCorrect = checker.percentagePlacedCorrectly();
+                        float percentCorrectInput = checker.percentageCorrectInput();
+                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
+                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
+
+                    }
+
+                }
+            checker.setInputPassword(sc.nextLine());
+
+
         }
 
     }
 
-    public String getInputPassword(){
-        return password;
-    }
+    private TimerTask createTimerTask() {
+        TimerTask task = new TimerTask()
+        {
+            public void run()
+            {
+                System.out.println( "Time's up, you lose! Tough luck" );
+                System.exit( -1 );
+            }
+        };
 
-}
+        return task;
+    }
+}//endclass
 
 // CodeCracker class
 // while loop: timer > 0: game is playing

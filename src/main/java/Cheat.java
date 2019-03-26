@@ -3,19 +3,19 @@ import java.util.Random;
 public class Cheat {
     int maxPercent;
     Dictionary dictionary;
-    CodeCracker cracker;
+    CodeChecker checker;
 
     //TODO pass in code cracker and not the actual password
-    public Cheat(CodeCracker cracker){
+    public Cheat(CodeChecker checker){
         dictionary = new Dictionary();
-        this.cracker = cracker;
+        this.checker = checker;
     }
 
     public void tryGuesses(){
         int guessLength = Integer.MIN_VALUE;
         Random rand = new Random();
         String inputPassword = dictionary.getWordByIndex(rand.nextInt(99172));
-        cracker.setInputPassword(inputPassword);
+        checker.setInputPassword(inputPassword);
 
 
 
