@@ -8,13 +8,9 @@ public class Application {
 
         new Application().playGame();
 
-
     }
 
     public void playGame() {
-//        CountdownTimer timer = new CountdownTimer(60);
-
-
 
         Timer timer = new Timer();
         Scanner sc = new Scanner(System.in);
@@ -25,34 +21,32 @@ public class Application {
         GeneratePassword password = new GeneratePassword();
         CodeChecker checker = new CodeChecker(password.getPassword(), input);
         TimerTask task = createTimerTask();
-        timer.schedule(task, 5*1000); //count downs for 60 seconds
+        timer.schedule(task, 5 * 1000); //count downs for 60 seconds
 //        long timeIntervalInSeconds = (task.scheduledExecutionTime() - System.currentTimeMillis())/1000;
 
-        while (play){
+        while (play) {
             if (checker.checkPassword()) {
-                    System.out.println("You cracked the password!");
-                    play = false;
-                    continue;
-                } else {
+                System.out.println("You cracked the password!");
+                play = false;
+                continue;
+            } else {
 //                checker.checkInputPassword();
                 System.out.println("Hmm you guessed incorrectly... try again: ");
-                    float percentLengthCorrect = checker.percentageCorrectLength();
-                    System.out.printf("Percentage of input length: %.02f%%\n", percentLengthCorrect);
-                    if (checker.inputLengthMatchesPasswordLength()) {
-                        float percentPlacedCorrect = checker.percentagePlacedCorrectly();
-                        float percentCorrectInput = checker.percentageCorrectInput();
-                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
-                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
-
-                    }
+                float percentLengthCorrect = checker.percentageCorrectLength();
+                System.out.printf("Percentage of input length: %.02f%%\n", percentLengthCorrect);
+                if (checker.inputLengthMatchesPasswordLength()) {
+                    float percentPlacedCorrect = checker.percentagePlacedCorrectly();
+                    float percentCorrectInput = checker.percentageCorrectInput();
+                    System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
+                    System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
                 }
+
+            }
             checker.setInputPassword(sc.nextLine());
-
-
         }
-
     }
+
 
     private TimerTask createTimerTask() {
         TimerTask task = new TimerTask()
@@ -68,6 +62,4 @@ public class Application {
     }
 }//endclass
 
-// CodeCracker class
-// while loop: timer > 0: game is playing
-//
+

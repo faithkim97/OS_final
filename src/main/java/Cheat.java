@@ -6,7 +6,7 @@ public class Cheat {
     CodeChecker checker;
 
     //TODO pass in code cracker and not the actual password
-    public Cheat(CodeChecker checker){
+    public Cheat(CodeChecker checker) {
         dictionary = new Dictionary();
         this.checker = checker;
     }
@@ -16,11 +16,6 @@ public class Cheat {
         Random rand = new Random();
         String inputPassword = dictionary.getWordByIndex(rand.nextInt(99172));
         checker.setInputPassword(inputPassword);
-
-
-
-
-
 
     }
 }
