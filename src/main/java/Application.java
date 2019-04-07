@@ -1,3 +1,4 @@
+/**
 import java.util.Scanner;
 
 public class Application {
@@ -50,3 +51,4 @@ public class Application {
 // CodeCracker class
 // while loop: timer > 0: game is playing
 //
+ */

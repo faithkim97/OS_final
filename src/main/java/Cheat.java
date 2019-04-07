@@ -1,3 +1,4 @@
+/**
 import java.util.Random;
 
 public class Cheat {
@@ -24,3 +25,4 @@ public class Cheat {
 
     }
 }
+ */

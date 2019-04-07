@@ -1,6 +1,4 @@
-import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
+/**import java.io.*;
 import java.util.Random;
 
 public class Dictionary {
@@ -48,18 +46,5 @@ public class Dictionary {
         return "";
 
     }
-
-    public int getLength() { return dictionary.length; }
-
-    public void sortByLength() {
-        Arrays.sort(dictionary, new java.util.Comparator<String>() {
-            public int compare(String s1, String s2) {
-                // TODO: Argument validation (nullity, length)
-                return s1.length() - s2.length();// comparision
-            }
-        });
-    }
-
-
-
 }
+*/

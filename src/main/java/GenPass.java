@@ -1,13 +1,12 @@
-/**
 import java.io.*;
 import java.util.Random;
 
 // find a random word in the dictionary
-public class GeneratePassword {
+public class GenPass {
     String setPassword;
 
 
-    public GeneratePassword(){
+    public GenPass(){
         setPasswordByDict();
     }
 
@@ -22,5 +21,3 @@ public class GeneratePassword {
         return setPassword;
     }
 }
-
-*/
