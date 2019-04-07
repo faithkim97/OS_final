@@ -23,7 +23,7 @@ public class NewApplication {
         GenPass password = new GenPass();
         CodeChecker checker = new CodeChecker(password.getPassword());
         TimerTask task = createTimerTask();
-        timer.schedule(task, 10 * 1000); //count downs for 60 seconds
+        timer.schedule(task, 60 * 1000); //count downs for 60 seconds
         Cheater cheater = new Cheater(checker);
         System.out.println("REAL PASSWORD: " + password.getPassword());
         while (play) {
