@@ -18,17 +18,6 @@ public class CodeChecker {
         return check;
     }
 
-
-//    public void checkInputPassword(){
-//            if (!inputLengthMatchesPasswordLength()) {
-//                System.out.println("Incorrect input password length.");
-//            }
-//            System.out.printf("You have placed %.02f%% characters correctly!\n",percentagePlacedCorrectly());
-//                // call percentage letters correct
-//            System.out.printf("You have input %.02f%% characters correctly!\n",percentageCorrectInput());
-//
-//    }
-
     public float percentageCorrectLength(char[] inputPassword) {
 
         float percentLen =  ((float) inputPassword.length/(float)setPassword.length)*100.00f;
@@ -39,18 +28,6 @@ public class CodeChecker {
     public boolean inputLengthMatchesPasswordLength(char[] inputPassword) {
         return (inputPassword.length == setPassword.length);
     }
-//
-//    public String compareLength(){
-//        if (inputPassword.length < setPassword.length){
-//            return "short";
-//        }
-//        else if (inputPassword.length > setPassword.length){
-//            return "long";
-//        }
-//        else{
-//            return "same";
-//        }
-//    }
 
     public float percentagePlacedCorrectly(char[] inputPassword){
         int counterSame = 0;
