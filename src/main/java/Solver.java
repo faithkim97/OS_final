@@ -13,9 +13,13 @@ public class Solver extends JApplet {
     /** The window */
     private static JFrame frame;
 
+    private static CodeChecker codeChecker;
+
+    private static GenPass genPass;
+
+
     /** Solve button */
     private static JButton solveButton;
-
 
     private static JButton cheatButton;
 
@@ -23,11 +27,10 @@ public class Solver extends JApplet {
 
     private static JLabel title;
 
-    private static JButton submit;
+    private static JButton submitButton;
 
     private static NewApplication codeCrackerApp;
-
-
+    //
 
     public static void createAndShowGUI() {
         // Make sure we have nice window decorations.
@@ -46,7 +49,8 @@ public class Solver extends JApplet {
     }
 
     public static void createComponents(Container pane) {
-
+        //TODO create JComponent for code cracker
+//        pane.add(codeCrackerApp);
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         solveButton = new JButton("Solve");
@@ -65,8 +69,10 @@ public class Solver extends JApplet {
 
 
 
-        submit = new JButton("Submit");
-        panel.add(submit);
+        submitButton = new JButton("Submit");
+        submitButton.addActionListener(new SubmitListener());
+        panel.add(submitButton);
+
 
         pane.add(panel,BorderLayout.SOUTH);
     }
@@ -79,9 +85,11 @@ public class Solver extends JApplet {
 //            maze = new Maze(args[0]);
 //        }
 
-//        codeCrackerApp = new NewApplication();
+        genPass = new GenPass();
+        codeChecker = new CodeChecker(genPass.getPassword());
 
-        new NewApplication().playGame();
+
+        //new NewApplication().playGame();
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -106,16 +114,32 @@ public class Solver extends JApplet {
         }
     }
 //
-//    /** Event handler for Solve button */
-//    private static class SolveListener implements ActionListener {
-//        public void actionPerformed(ActionEvent e) {
-//            maze.reset();
-//            // call to solve should be on a new thread
-//            solveButton.setEnabled(false);
-//            resetButton.setEnabled(false);
-//            (new SolverThread()).execute();
-//        }
-//    }
+//     Event handler for Solve button */
+    private static class SubmitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (inputPassword.getPassword() != null) {
+                System.out.println("real password: " + genPass.getPassword());
+                char[] input = inputPassword.getPassword();
+                if (codeChecker.checkPassword(input)) {
+                    System.out.println("You cracked the password!");
+                    submitButton.setEnabled(false);
+                    System.exit(-1);
+                } else {
+                    System.out.println("Hmm you guessed incorrectly... try again: ");
+                    float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
+                    System.out.printf("Percentage of input length: %.02f%%\n", percentLengthCorrect);
+                    if (codeChecker.inputLengthMatchesPasswordLength(input)) {
+                        float percentPlacedCorrect = codeChecker.percentagePlacedCorrectly(input);
+                        float percentCorrectInput = codeChecker.percentageCorrectInput(input);
+                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
+                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
+
+                    }
+
+                }
+            }
+        }
+    }
 //
 //    /** Event handler for Reset button */
 //    private static class ResetListener implements ActionListener {
