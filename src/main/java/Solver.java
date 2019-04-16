@@ -11,12 +11,12 @@ import javax.swing.*;
 public class Solver extends JApplet {
 
     /** The window */
+
     private static JFrame frame;
 
     private static CodeChecker codeChecker;
 
     private static GenPass genPass;
-
 
     /** Solve button */
     private static JButton solveButton;
@@ -30,6 +30,9 @@ public class Solver extends JApplet {
     private static JButton submitButton;
 
     private static NewApplication codeCrackerApp;
+    private static JLabel  placedCorrectly;
+    private static JLabel charsCorrect;
+    private static JLabel lengthCorrect;
     //
 
     public static void createAndShowGUI() {
@@ -38,13 +41,14 @@ public class Solver extends JApplet {
 
         // Create and set up the window.
         frame = new JFrame("Crack the Code!");
+        frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add components
         createComponents(frame.getContentPane());
 
         // Display the window.
-        frame.pack();
+//        frame.pack();
         frame.setVisible(true);
     }
 
@@ -52,26 +56,33 @@ public class Solver extends JApplet {
         //TODO create JComponent for code cracker
 //        pane.add(codeCrackerApp);
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new BorderLayout());
         solveButton = new JButton("Solve");
 //        resetButton.addActionListener(new ResetListener());
 
 
         pane.add(panel, BorderLayout.NORTH);
         cheatButton = new JButton("Cheat you weakling");
-        panel.add(cheatButton);
+        pane.add(cheatButton, BorderLayout.EAST);
 
         title = new JLabel("Guess the password you fool!!");
-        panel.add(title);
+        pane.add(title, BorderLayout.NORTH);
 
         inputPassword = new JPasswordField( 30);
-        panel.add(inputPassword);
+        pane.add(inputPassword, BorderLayout.NORTH);
+//        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
+//                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
+        placedCorrectly  = new JLabel(" ", JLabel.CENTER);
+        charsCorrect  = new JLabel(" ", JLabel.CENTER);
 
+        pane.add(placedCorrectly);
+        pane.add(charsCorrect);
 
         submitButton = new JButton("Submit");
+        submitButton.setPreferredSize(new Dimension(50,50));
         submitButton.addActionListener(new SubmitListener());
-        panel.add(submitButton);
+        pane.add(submitButton);
 
 
         pane.add(panel,BorderLayout.SOUTH);
@@ -125,14 +136,19 @@ public class Solver extends JApplet {
                     submitButton.setEnabled(false);
                     System.exit(-1);
                 } else {
+
                     System.out.println("Hmm you guessed incorrectly... try again: ");
                     float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
                     System.out.printf("Percentage of input length: %.02f%%\n", percentLengthCorrect);
                     if (codeChecker.inputLengthMatchesPasswordLength(input)) {
                         float percentPlacedCorrect = codeChecker.percentagePlacedCorrectly(input);
                         float percentCorrectInput = codeChecker.percentageCorrectInput(input);
-                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
-                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
+                        placedCorrectly.setText("You have placed "+percentPlacedCorrect+" characters correctly!\n");
+                        charsCorrect.setText("You have input " + percentCorrectInput+ " characters correctly!\n");
+                        placedCorrectly.repaint();
+                        charsCorrect.repaint();
+//                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
+//                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
                     }
 
