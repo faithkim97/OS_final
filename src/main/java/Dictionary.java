@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+
 
 public class Dictionary {
-    private String[] dictionary = new String[99172];
+    private static final int SIZE = 99172;
+    private String[] dictionary = new String[SIZE];
 
     public Dictionary(){
         createDict();
@@ -17,7 +17,7 @@ public class Dictionary {
 
             try {
                 String currentLine = readDictionary.readLine();
-                while (currentLine != null && index < 99172) {
+                while (currentLine != null && index < SIZE) {
                     dictionary[index] = currentLine;
                     currentLine = readDictionary.readLine();
                     index++;
@@ -42,14 +42,14 @@ public class Dictionary {
     }
 
     public String getWordByIndex(int index) {
-        if (index >= 0 && index < dictionary.length) {
+        if (index >= 0 && index < SIZE) {
             return dictionary[index];
         }
         return "";
 
     }
 
-    public int getLength() { return dictionary.length; }
+    public int getLength() { return SIZE; }
 
     public void sortByLength() {
         Arrays.sort(dictionary, new java.util.Comparator<String>() {

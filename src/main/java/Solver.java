@@ -32,6 +32,7 @@ public class Solver extends JApplet {
     private static NewApplication codeCrackerApp;
     private static JLabel  placedCorrectly;
     private static JLabel charsCorrect;
+    private static JLabel cheatResult;
     private static JLabel lengthCorrect;
     //
 
@@ -54,7 +55,6 @@ public class Solver extends JApplet {
 
     public static void createComponents(Container pane) {
         //TODO create JComponent for code cracker
-//        pane.add(codeCrackerApp);
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         solveButton = new JButton("Solve");
@@ -68,6 +68,8 @@ public class Solver extends JApplet {
         title = new JLabel("Guess the password you fool!!");
         pane.add(title, BorderLayout.NORTH);
 
+
+
         inputPassword = new JPasswordField( 30);
         pane.add(inputPassword, BorderLayout.NORTH);
 //        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
@@ -75,9 +77,12 @@ public class Solver extends JApplet {
 
         placedCorrectly  = new JLabel(" ", JLabel.CENTER);
         charsCorrect  = new JLabel(" ", JLabel.CENTER);
+        cheatResult = new JLabel(" ", JLabel.CENTER);
+
 
         pane.add(placedCorrectly);
         pane.add(charsCorrect);
+        pane.add(cheatResult);
 
         submitButton = new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(50,50));
@@ -85,22 +90,18 @@ public class Solver extends JApplet {
         pane.add(submitButton);
 
 
+
+
+
         pane.add(panel,BorderLayout.SOUTH);
     }
 
     // Application starts here
     public static void main(String[] args) {
-//        if (args.length == 0) {
-//            maze = new Maze();
-//        } else {
-//            maze = new Maze(args[0]);
-//        }
-
         genPass = new GenPass();
         codeChecker = new CodeChecker(genPass.getPassword());
 
 
-        //new NewApplication().playGame();
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -124,12 +125,24 @@ public class Solver extends JApplet {
             System.err.println("createGUI didn't successfully complete");
         }
     }
+    private static class CheatListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+           Cheater cheater = new Cheater(codeChecker);
+           String cheatPassword = cheater.doCheat();
+           cheatResult.setText("Loser. Here's just a lil bit of hint for you: " + cheatPassword);
+        }
+    }
 //
 //     Event handler for Solve button */
     private static class SubmitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (inputPassword.getPassword() != null) {
                 System.out.println("real password: " + genPass.getPassword());
+//                if (input.equals("!")) {
+//                    input = cheater.doCheat();
+//                    System.out.println(input);
+//                }
+
                 char[] input = inputPassword.getPassword();
                 if (codeChecker.checkPassword(input)) {
                     System.out.println("You cracked the password!");
