@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class NewApplication {
     public static void main(String[] args) {
         System.out.println("Application started");
