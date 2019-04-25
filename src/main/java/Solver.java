@@ -114,8 +114,13 @@ public class Solver extends JApplet {
         JPanel panelNorth = new JPanel();
         JPanel panelSouth = new JPanel();
         JPanel panelNorthNorth = new JPanel();
+        JPanel gridNorth = new JPanel();
+        JPanel gridText = new JPanel();
+
         panelSouth.setLayout(new BorderLayout());
         panelNorth.setLayout(new BorderLayout());
+        gridNorth.setLayout(new GridLayout());
+        gridText.setLayout(new GridLayout());
         panelNorthNorth.setLayout(new BorderLayout());
         panelCenter.setLayout(new BorderLayout());
 
@@ -133,8 +138,30 @@ public class Solver extends JApplet {
 
         inputPassword = new JPasswordField( 30);
         inputPassword.setPreferredSize(new Dimension(50,50));
+        submitButton = new JButton("Submit");
+        submitButton.setPreferredSize(new Dimension(30,30));
+        submitButton.setBackground(Color.RED);
+        submitButton.setOpaque(true);
+        submitButton.addActionListener(new SubmitListener());
+
+
         panelNorth.add(panelNorthNorth, BorderLayout.NORTH);
-        panelNorth.add(inputPassword, BorderLayout.CENTER);
+        for (int i  =0 ; i<3; i++){
+        gridNorth.add(new JLabel(""));
+        }
+        gridNorth.add(inputPassword);
+
+        gridNorth.add(submitButton);
+//        gridNorth.add(new JLabel(""));
+
+        gridNorth.setLayout(new GridLayout(5,3));
+        gridNorth.setSize(30,100);
+//        gridNorth.setVisible(true);
+
+        panelNorth.add (gridNorth, BorderLayout.CENTER);
+
+//        panelNorth.add (gridNorth, BorderLayout.CENTER);
+//        panelNorth.add(inputPassword, BorderLayout.CENTER);
 //        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
 //                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
@@ -144,21 +171,30 @@ public class Solver extends JApplet {
         lengthCorrect = new JLabel("Length correct: ", JLabel.CENTER);
 
 
-        panelSouth.add(placedCorrectly, BorderLayout.WEST);
-        panelSouth.add(charsCorrect, BorderLayout.CENTER);
-        panelSouth.add(cheatResult, BorderLayout.EAST);
-        panelSouth.add(lengthCorrect, BorderLayout.SOUTH);
+//        panelSouth.add(placedCorrectly, BorderLayout.WEST);
+//        panelSouth.add(charsCorrect, BorderLayout.CENTER);
+//        panelSouth.add(cheatResult, BorderLayout.EAST);
+//        panelSouth.add(lengthCorrect, BorderLayout.SOUTH);
+        gridText.add(placedCorrectly);
+        gridText.add(charsCorrect);
+        gridText.add(cheatResult);
+        gridText.add(lengthCorrect);
 
-        submitButton = new JButton("Submit");
-        submitButton.setPreferredSize(new Dimension(100,100));
-        submitButton.addActionListener(new SubmitListener());
-        panelNorth.add(submitButton, BorderLayout.EAST);
+        gridText.setLayout(new GridLayout(5,3));
+        gridText.setSize(30,100);
+//        gridNorth.setVisible(true);
+
+        panelSouth.add (gridText, BorderLayout.NORTH);
+
+
+
+//        panelNorth.add(submitButton, BorderLayout.EAST);
 
 //        panelCenter.add(panelNorth, BorderLayout.NORTH);
 
        pane.add(panelNorth,BorderLayout.NORTH);
 //        pane.add(panelCenter, BorderLayout.NORTH);
-        pane.add(panelSouth, BorderLayout.CENTER);
+        pane.add(panelSouth, BorderLayout.SOUTH);
     }
 
     private static TimerTask createTimerTask() {
@@ -232,15 +268,17 @@ public class Solver extends JApplet {
                 } else {
 
                     float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
-                    lengthCorrect.setText(percentLengthCorrect > -1 ? "You are " + percentLengthCorrect +"% correct." :
+                    lengthCorrect.setText(percentLengthCorrect > -1 ? "Your input length is " + percentLengthCorrect +"% correct." :
                             "Your length is too long");
                     if (codeChecker.inputLengthMatchesPasswordLength(input)) {
                         float percentPlacedCorrect = codeChecker.percentagePlacedCorrectly(input);
                         float percentCorrectInput = codeChecker.percentageCorrectInput(input);
                         placedCorrectly.setText("You have placed "+percentPlacedCorrect+"% of characters correctly!\n");
                         charsCorrect.setText("You have input " + percentCorrectInput+ "% of characters correctly!\n");
-                        placedCorrectly.repaint();
-                        charsCorrect.repaint();
+
+
+//                        placedCorrectly.repaint();
+//                        charsCorrect.repaint();
 //                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
 //                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
