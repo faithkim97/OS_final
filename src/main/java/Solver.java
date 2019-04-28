@@ -5,6 +5,8 @@ import java.util.TimerTask;
 //import java.util.Timer;
 import javax.swing.Timer;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 /**
  *  Class that runs a maze display/solution GUI
@@ -55,7 +57,7 @@ public class Solver extends JApplet {
         frame = new JFrame("Crack the Code!");
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.black);
+        frame.getContentPane().setBackground(Color.BLACK);
 
         // Add components
         createComponents(frame.getContentPane());
@@ -76,7 +78,7 @@ public class Solver extends JApplet {
                 long diff = (endTime - new Date().getTime())/1000;
                 if (diff <= 0) {
                     exitLabel.setVisible(true);
-                    exitLabel.setText("Time's up, you lose!");
+                    exitLabel.setText("ACCESS DENIED");
                     disableDecode();
                     exitButton.setVisible(true);
                     ((Timer)e.getSource()).stop();
@@ -94,11 +96,16 @@ public class Solver extends JApplet {
     public static void createComponents(Container pane) {
         //TODO create JComponent for code cracker
         JPanel panelCenter = new JPanel();
+        panelCenter.setBackground(Color.BLACK);
         JPanel panelNorth = new JPanel();
+        panelNorth.setBackground(Color.BLACK);
         JPanel panelSouth = new JPanel();
+        panelSouth.setBackground(Color.BLACK);
         final JPanel panelNorthNorth = new JPanel();
         JPanel gridNorth = new JPanel();
         JPanel gridText = new JPanel();
+        gridNorth.setBackground(Color.BLACK);
+        gridText.setBackground(Color.BLACK);
 
         panelSouth.setLayout(new BorderLayout());
         panelNorth.setLayout(new BorderLayout());
@@ -113,9 +120,11 @@ public class Solver extends JApplet {
         exitButton.setVisible(false);
         panelNorthNorth.add(exitButton, BorderLayout.SOUTH);
         exitButton.addActionListener(new ExitListener());
+        panelNorthNorth.setBackground(Color.BLACK);
 
         exitLabel = new JLabel("", JLabel.CENTER);
         exitLabel.setVisible(false);
+        exitLabel.setForeground(Color.RED);
         panelNorthNorth.add(exitLabel, BorderLayout.NORTH);
 
         startButton = new JButton("Start Decoding");
@@ -129,10 +138,19 @@ public class Solver extends JApplet {
 //        pane.add(title);
 
         countDown = new JLabel ("Time remaining: "+"                    ", JLabel.CENTER);
+        countDown.setFont(new Font("Verdana", Font.BOLD, 15));
+        countDown.setForeground(Color.RED);
         panelNorthNorth.add(countDown, BorderLayout.EAST);
 
         inputPassword = new JPasswordField( 30);
         inputPassword.setPreferredSize(new Dimension(50,50));
+        inputPassword.setBackground(Color.BLACK);
+        inputPassword.setBorder(new LineBorder(Color.GREEN, 2));
+        inputPassword.setForeground(Color.GREEN);
+        inputPassword.setFont(new Font("Verdana", Font.BOLD, 30));
+
+
+
         submitButton = new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(30,30));
         submitButton.setBackground(Color.RED);
@@ -157,9 +175,13 @@ public class Solver extends JApplet {
         panelNorth.add (gridNorth, BorderLayout.CENTER);
 
         placedCorrectly  = new JLabel("Placed Correctly", JLabel.CENTER);
+        placedCorrectly.setForeground(Color.YELLOW);
         charsCorrect  = new JLabel("Chars correct:", JLabel.CENTER);
+        charsCorrect.setForeground(Color.YELLOW);
         cheatResult = new JLabel("Cheat Result:", JLabel.CENTER);
+        cheatResult.setForeground(Color.RED);
         lengthCorrect = new JLabel("Length correct: ", JLabel.CENTER);
+        lengthCorrect.setForeground(Color.YELLOW);
 
         disableDecode();
         timer = createTimer();
