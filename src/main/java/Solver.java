@@ -83,7 +83,7 @@ public class Solver extends JApplet {
                     exitButton.setVisible(true);
                     ((Timer)e.getSource()).stop();
                 }
-                countDown.setText("Time remaining: " + diff+"                    ");
+                countDown.setText("Time remaining: " + diff+" ");
                 countDown.repaint();
             }
         });
@@ -137,8 +137,8 @@ public class Solver extends JApplet {
         title = new JLabel("Guess the password you fool!!");
 //        pane.add(title);
 
-        countDown = new JLabel ("Time remaining: "+"                    ", JLabel.CENTER);
-        countDown.setFont(new Font("Verdana", Font.BOLD, 15));
+        countDown = new JLabel ("Time remaining: "+" ", JLabel.CENTER);
+        countDown.setFont(new Font("Monospaced", Font.BOLD, 15));
         countDown.setForeground(Color.RED);
         panelNorthNorth.add(countDown, BorderLayout.EAST);
 
