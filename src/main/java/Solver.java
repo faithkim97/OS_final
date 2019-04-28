@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.TimerTask;
+//import java.util.Timer;
+import javax.swing.Timer;
 import javax.swing.*;
 
 /**
@@ -24,6 +26,9 @@ public class Solver extends JApplet {
     private static JButton solveButton;
 
     private static JButton cheatButton;
+
+    private static JButton startButton;
+
 
     private static JPasswordField inputPassword;
 
@@ -57,55 +62,6 @@ public class Solver extends JApplet {
         frame.setVisible(true);
     }
 
-/*
-    public void createComponents(Container pane) {  
-
-// Create the two panels inside pane and set their layouts
-        JPanel panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout());       
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new BorderLayout());
-
-// Create northButton and put it in place
-        JButton northButton = new JButton("North");
-        panel1.add(northButton, BorderLayout.NORTH);
-        northButton.addActionListener(new directionListener(0,20));
-
-// Create southButton and put it in place
-        JButton southButton = new JButton("South");
-        panel1.add(southButton, BorderLayout.SOUTH);
-        southButton.addActionListener(new directionListener(0,-20));
-
-// Create eastButton and put it in place
-        JButton eastButton = new JButton("East");
-        panel1.add(eastButton, BorderLayout.EAST);
-        eastButton.addActionListener(new directionListener(-20,0));
-
-// Create westButton and put it in place
-        JButton westButton = new JButton("West");
-        panel1.add(westButton, BorderLayout.WEST);
-        westButton.addActionListener(new directionListener(20,0));
-
-// Create zoomInButton and put it in place
-        JButton zoomInButton = new JButton("Zoom in");
-        panel2.add(zoomInButton, BorderLayout.SOUTH);
-        zoomInButton.addActionListener(new zoomListener(1));
-
-// Create zoomOutButton and put it in place
-        JButton zoomOutButton = new JButton("Zoom out");
-        panel2.add(zoomOutButton, BorderLayout.NORTH);
-        zoomOutButton.addActionListener(new zoomListener(-1));
-
-// Set the layout of pane, add the view of map, the MouseListener and the two panels to the pane
-        pane.setLayout(new FlowLayout());
-        pane.add(view);
-        view.addMouseListener(new clickListener());
-
-        panel1.add(panel2);
-        pane.add(panel1);
-
-    }
-    */
 
     public static void createComponents(Container pane) {
         //TODO create JComponent for code cracker
@@ -113,7 +69,7 @@ public class Solver extends JApplet {
 //        JPanel panelCenter = new JPanel(new GridLayout(2, 2));
         JPanel panelNorth = new JPanel();
         JPanel panelSouth = new JPanel();
-        JPanel panelNorthNorth = new JPanel();
+        final JPanel panelNorthNorth = new JPanel();
         JPanel gridNorth = new JPanel();
         JPanel gridText = new JPanel();
 
@@ -124,8 +80,15 @@ public class Solver extends JApplet {
         panelNorthNorth.setLayout(new BorderLayout());
         panelCenter.setLayout(new BorderLayout());
 
+
+//        panelNorthNorth.add(timer, BorderLayout.CENTER);
+
+
         panelCenter.setPreferredSize(new Dimension(50, 50));
 
+        startButton = new JButton("Start Decoding");
+        startButton.addActionListener(new StartListener());
+        panelNorthNorth.add(startButton, BorderLayout.CENTER);
         cheatButton = new JButton("Cheat you weakling");
         cheatButton.addActionListener(new CheatListener());
         panelNorthNorth.add(cheatButton, BorderLayout.WEST);
@@ -134,7 +97,7 @@ public class Solver extends JApplet {
 //        pane.add(title);
 
         countDown = new JLabel ("Time remaining: ", JLabel.CENTER);
-        panelNorthNorth.add(cheatButton, BorderLayout.EAST);
+        panelNorthNorth.add(countDown, BorderLayout.EAST);
 
         inputPassword = new JPasswordField( 30);
         inputPassword.setPreferredSize(new Dimension(50,50));
@@ -169,6 +132,23 @@ public class Solver extends JApplet {
         charsCorrect  = new JLabel("Chars correct:", JLabel.CENTER);
         cheatResult = new JLabel("Cheat Result:", JLabel.CENTER);
         lengthCorrect = new JLabel("Length correct: ", JLabel.CENTER);
+
+        disableDecode();
+
+        final int milliSec = 1000;
+        final int sec = 60;
+
+        timer = new Timer(1 * milliSec, new ActionListener() {
+            long endTime = (new Date().getTime() + sec*milliSec);
+
+            public void actionPerformed(ActionEvent e) {
+                long diff = (endTime - new Date().getTime())/1000;
+                System.out.println("action performed hoeee " + diff);
+                countDown.setText("Time left: " + diff);
+                countDown.repaint();
+            }
+        });
+
 
 
 //        panelSouth.add(placedCorrectly, BorderLayout.WEST);
@@ -210,28 +190,34 @@ public class Solver extends JApplet {
         return task;
     }
 
+    private static void disableDecode() {
+        inputPassword.setEnabled(false);
+        submitButton.setEnabled(false);
+        cheatButton.setEnabled(false);
+    }
+
     // Application starts here
     public static void main(String[] args) {
-        long sec = 60*1000;
+
+
         genPass = new GenPass();
         codeChecker = new CodeChecker(genPass.getPassword());
-        Date time = new Date();
-        long startTime = time.getTime();
-        final long endTime = startTime + sec;
-        timer = new Timer(60*1000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                long diff = (endTime - new Date().getTime());
-                countDown.setText(diff +"");
-            }
-        });
 
         // Schedule a job for the event-dispatching thread:
         // creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
+
+
             }
         });
+//
+//        while (true) {
+//            long diff = (endTime - new Date().getTime())/1000;
+//            System.out.println(diff);
+//        }
+
     }
 
     // Applet starts here
@@ -253,6 +239,31 @@ public class Solver extends JApplet {
            Cheater cheater = new Cheater(codeChecker);
            String cheatPassword = cheater.doCheat();
            cheatResult.setText("Loser. Here's just a lil bit of hint for you: " + cheatPassword);
+        }
+    }
+
+    private static class StartListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            startDecode();
+            timer.start();
+
+//            Date time = new Date();
+//            long startTime = time.getTime();
+//            final long endTime = startTime + sec*milliSec;
+//            final TimerTask task = createTimerTask();
+//            timer = new Timer();
+//            timer.schedule(task, sec*milliSec);
+//            long diff = (endTime - new Date().getTime())/1000;
+//            countDown.setText("Time left: " + diff);
+//            countDown.updateUI();
+
+        }
+
+        private void startDecode() {
+            startButton.setVisible(false);
+            submitButton.setEnabled(true);
+            cheatButton.setEnabled(true);
+            inputPassword.setEnabled(true);
         }
     }
 //
