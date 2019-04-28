@@ -96,7 +96,7 @@ public class Solver extends JApplet {
         title = new JLabel("Guess the password you fool!!");
 //        pane.add(title);
 
-        countDown = new JLabel ("Time remaining: ", JLabel.CENTER);
+        countDown = new JLabel ("Time remaining: "+"                    ", JLabel.CENTER);
         panelNorthNorth.add(countDown, BorderLayout.EAST);
 
         inputPassword = new JPasswordField( 30);
@@ -136,15 +136,19 @@ public class Solver extends JApplet {
         disableDecode();
 
         final int milliSec = 1000;
-        final int sec = 60;
+        final int buffer = 6;
+        final int sec = 5+buffer;
 
         timer = new Timer(1 * milliSec, new ActionListener() {
             long endTime = (new Date().getTime() + sec*milliSec);
 
             public void actionPerformed(ActionEvent e) {
                 long diff = (endTime - new Date().getTime())/1000;
-                System.out.println("action performed hoeee " + diff);
-                countDown.setText("Time left: " + diff);
+                if (diff <= 0) {
+                    System.out.println("Time's up, you lost!");
+                    System.exit(-1);
+                }
+                countDown.setText("Time remaining: " + diff+"                    ");
                 countDown.repaint();
             }
         });
