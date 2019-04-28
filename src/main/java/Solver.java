@@ -29,6 +29,8 @@ public class Solver extends JApplet {
 
     private static JButton startButton;
 
+    private static JButton exitButton;
+
 
     private static JPasswordField inputPassword;
 
@@ -36,14 +38,14 @@ public class Solver extends JApplet {
 
     private static JButton submitButton;
 
-    private static NewApplication codeCrackerApp;
+    private static JLabel exitLabel;
     private static JLabel  placedCorrectly;
     private static JLabel charsCorrect;
     private static JLabel cheatResult;
     private static JLabel lengthCorrect;
     private static JLabel countDown;
     private static Timer timer;
-    //
+
 
     public static void createAndShowGUI() {
         // Make sure we have nice window decorations.
@@ -53,6 +55,7 @@ public class Solver extends JApplet {
         frame = new JFrame("Crack the Code!");
         frame.setSize(500,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(Color.black);
 
         // Add components
         createComponents(frame.getContentPane());
@@ -62,11 +65,35 @@ public class Solver extends JApplet {
         frame.setVisible(true);
     }
 
+    public static Timer createTimer() {
+        final int milliSec = 1000;
+        final int buffer = 6;
+        final int sec = 60+buffer;
+
+        timer = new Timer(1 * milliSec, new ActionListener() {
+            long endTime = (new Date().getTime() + sec*milliSec);
+            public void actionPerformed(ActionEvent e) {
+                long diff = (endTime - new Date().getTime())/1000;
+                if (diff <= 0) {
+                    exitLabel.setVisible(true);
+                    exitLabel.setText("Time's up, you lose!");
+                    disableDecode();
+                    exitButton.setVisible(true);
+                    ((Timer)e.getSource()).stop();
+                }
+                countDown.setText("Time remaining: " + diff+"                    ");
+                countDown.repaint();
+            }
+        });
+
+        return timer;
+
+    }
+
 
     public static void createComponents(Container pane) {
         //TODO create JComponent for code cracker
         JPanel panelCenter = new JPanel();
-//        JPanel panelCenter = new JPanel(new GridLayout(2, 2));
         JPanel panelNorth = new JPanel();
         JPanel panelSouth = new JPanel();
         final JPanel panelNorthNorth = new JPanel();
@@ -80,11 +107,16 @@ public class Solver extends JApplet {
         panelNorthNorth.setLayout(new BorderLayout());
         panelCenter.setLayout(new BorderLayout());
 
-
-//        panelNorthNorth.add(timer, BorderLayout.CENTER);
-
-
         panelCenter.setPreferredSize(new Dimension(50, 50));
+
+        exitButton = new JButton("Exit");
+        exitButton.setVisible(false);
+        panelNorthNorth.add(exitButton, BorderLayout.SOUTH);
+        exitButton.addActionListener(new ExitListener());
+
+        exitLabel = new JLabel("", JLabel.CENTER);
+        exitLabel.setVisible(false);
+        panelNorthNorth.add(exitLabel, BorderLayout.NORTH);
 
         startButton = new JButton("Start Decoding");
         startButton.addActionListener(new StartListener());
@@ -108,25 +140,21 @@ public class Solver extends JApplet {
         submitButton.addActionListener(new SubmitListener());
 
 
+
         panelNorth.add(panelNorthNorth, BorderLayout.NORTH);
+
         for (int i  =0 ; i<3; i++){
-        gridNorth.add(new JLabel(""));
+             gridNorth.add(new JLabel(""));
         }
+
         gridNorth.add(inputPassword);
 
         gridNorth.add(submitButton);
-//        gridNorth.add(new JLabel(""));
 
         gridNorth.setLayout(new GridLayout(5,3));
         gridNorth.setSize(30,100);
-//        gridNorth.setVisible(true);
 
         panelNorth.add (gridNorth, BorderLayout.CENTER);
-
-//        panelNorth.add (gridNorth, BorderLayout.CENTER);
-//        panelNorth.add(inputPassword, BorderLayout.CENTER);
-//        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
-//                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
 
         placedCorrectly  = new JLabel("Placed Correctly", JLabel.CENTER);
         charsCorrect  = new JLabel("Chars correct:", JLabel.CENTER);
@@ -134,31 +162,9 @@ public class Solver extends JApplet {
         lengthCorrect = new JLabel("Length correct: ", JLabel.CENTER);
 
         disableDecode();
-
-        final int milliSec = 1000;
-        final int buffer = 6;
-        final int sec = 5+buffer;
-
-        timer = new Timer(1 * milliSec, new ActionListener() {
-            long endTime = (new Date().getTime() + sec*milliSec);
-
-            public void actionPerformed(ActionEvent e) {
-                long diff = (endTime - new Date().getTime())/1000;
-                if (diff <= 0) {
-                    System.out.println("Time's up, you lost!");
-                    System.exit(-1);
-                }
-                countDown.setText("Time remaining: " + diff+"                    ");
-                countDown.repaint();
-            }
-        });
+        timer = createTimer();
 
 
-
-//        panelSouth.add(placedCorrectly, BorderLayout.WEST);
-//        panelSouth.add(charsCorrect, BorderLayout.CENTER);
-//        panelSouth.add(cheatResult, BorderLayout.EAST);
-//        panelSouth.add(lengthCorrect, BorderLayout.SOUTH);
         gridText.add(placedCorrectly);
         gridText.add(charsCorrect);
         gridText.add(cheatResult);
@@ -166,33 +172,13 @@ public class Solver extends JApplet {
 
         gridText.setLayout(new GridLayout(5,3));
         gridText.setSize(30,100);
-//        gridNorth.setVisible(true);
 
         panelSouth.add (gridText, BorderLayout.NORTH);
 
-
-
-//        panelNorth.add(submitButton, BorderLayout.EAST);
-
-//        panelCenter.add(panelNorth, BorderLayout.NORTH);
-
        pane.add(panelNorth,BorderLayout.NORTH);
-//        pane.add(panelCenter, BorderLayout.NORTH);
         pane.add(panelSouth, BorderLayout.SOUTH);
     }
 
-    private static TimerTask createTimerTask() {
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
-                System.out.println( "Time's up, you lose! Tough luck" );
-                System.exit( -1 );
-            }
-        };
-
-        return task;
-    }
 
     private static void disableDecode() {
         inputPassword.setEnabled(false);
@@ -216,11 +202,6 @@ public class Solver extends JApplet {
 
             }
         });
-//
-//        while (true) {
-//            long diff = (endTime - new Date().getTime())/1000;
-//            System.out.println(diff);
-//        }
 
     }
 
@@ -250,17 +231,6 @@ public class Solver extends JApplet {
         public void actionPerformed(ActionEvent e) {
             startDecode();
             timer.start();
-
-//            Date time = new Date();
-//            long startTime = time.getTime();
-//            final long endTime = startTime + sec*milliSec;
-//            final TimerTask task = createTimerTask();
-//            timer = new Timer();
-//            timer.schedule(task, sec*milliSec);
-//            long diff = (endTime - new Date().getTime())/1000;
-//            countDown.setText("Time left: " + diff);
-//            countDown.updateUI();
-
         }
 
         private void startDecode() {
@@ -270,7 +240,16 @@ public class Solver extends JApplet {
             inputPassword.setEnabled(true);
         }
     }
-//
+
+    private static class ExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.exit(-1);
+        }
+
+    }
+
+
+
 //     Event handler for Solve button */
     private static class SubmitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -279,7 +258,12 @@ public class Solver extends JApplet {
                 char[] input = inputPassword.getPassword();
                 if (codeChecker.checkPassword(input)) {
                     submitButton.setEnabled(false);
-                    System.exit(-1);
+                    exitLabel.setText("You win! Congrats!");
+                    exitLabel.setVisible(true);
+                    disableDecode();
+                    exitButton.setVisible(true);
+                    timer.stop();
+//                    System.exit(-1);
                 } else {
 
                     float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
@@ -291,44 +275,11 @@ public class Solver extends JApplet {
                         placedCorrectly.setText("You have placed "+percentPlacedCorrect+"% of characters correctly!\n");
                         charsCorrect.setText("You have input " + percentCorrectInput+ "% of characters correctly!\n");
 
-
-//                        placedCorrectly.repaint();
-//                        charsCorrect.repaint();
-//                        System.out.printf("You have placed %.02f%% characters correctly!\n", percentPlacedCorrect);
-//                        System.out.printf("You have input %.02f%% characters correctly!\n", percentCorrectInput);
-
                     }
 
                 }
             }
         }
     }
-//
-//    /** Event handler for Reset button */
-//    private static class ResetListener implements ActionListener {
-//        public void actionPerformed(ActionEvent e) {
-//            maze.reset();
-//        }
-//    }
 
-//    /** Worker class for solving the maze */
-//    private static class SolverThread extends SwingWorker<Boolean, Object> {
-//        @Override
-//        public Boolean doInBackground() {
-//            return maze.solve();
-//        }
-//
-//        @Override
-//        protected void done() {
-//            try {
-//                if (!get()) {  // test the result of doInBackground()
-//                    System.out.println("Maze has no valid solution.");
-//                }
-//                solveButton.setEnabled(true);
-//                resetButton.setEnabled(true);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }
