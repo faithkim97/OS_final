@@ -152,11 +152,13 @@ public class Solver extends JApplet {
 
         startButton = new JButton("Start Decoding");
         startButton.addActionListener(new StartListener());
-        gridStart.add(new JLabel(""));
+
         gridStart.add(startButton);
+        gridStart.add(new JLabel(""));
+        gridStart.add(new JLabel(""));
         gridStart.setLayout(new GridLayout(3,1));
         gridStart.setSize(100,100);
-        panelStart.add(gridStart, BorderLayout.NORTH);
+        panelStart.add(gridStart, BorderLayout.CENTER);
 
 
         exitLabel = new JLabel("", JLabel.CENTER);
