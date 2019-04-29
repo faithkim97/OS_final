@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60ba7dd1-b965-47c9-96cc-df35fd2762d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$CheatListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$CheatListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$ExitListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$ExitListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$StartListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$StartListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver$SubmitListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver$SubmitListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Solver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Solver.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +49,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Solver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="162" column="8" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+            <state relative-caret-position="256">
+              <caret line="133" selection-start-line="133" selection-end-line="133" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8087#8227#0" expanded="true" />
@@ -143,6 +152,7 @@
       <find>Timer</find>
       <find>countDown</find>
       <find>exitlabel</find>
+      <find>panelcenter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -219,7 +229,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556540228603" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556548541160" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
@@ -288,9 +298,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="172" y="22" width="1268" height="804" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16013072" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16013072" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -299,7 +308,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13380282" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.114084505" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3988764" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -307,7 +316,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32957748" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32957748" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32816902" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.36901408" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -490,8 +499,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Solver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="162" column="8" selection-start-line="162" selection-start-column="8" selection-end-line="162" selection-end-column="8" />
+        <state relative-caret-position="256">
+          <caret line="133" selection-start-line="133" selection-end-line="133" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8087#8227#0" expanded="true" />

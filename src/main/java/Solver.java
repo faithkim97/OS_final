@@ -1,47 +1,34 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
-import java.util.TimerTask;
-//import java.util.Timer;
 import javax.swing.Timer;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- *  Class that runs a maze display/solution GUI
+ *  Class that runs the GUI for decode game
  *
- *  @author Nicholas R. Howe
- *  @version CSC 112, 20 March 2006
+ *  @authors Faith Kim and Hafsah Hanif
+ *  @version CSC 260 FINAL PROJECT, 4/30/2019
  */
 public class Solver extends JApplet {
 
-    /** The window */
 
     private static JFrame frame;
     private static Container pane;
 
     private static CodeChecker codeChecker;
-    private static JPanel panelExit;
-
     private static GenPass genPass;
 
-    /** Solve button */
-    private static JButton solveButton;
-
     private static JButton cheatButton;
-
     private static JButton startButton;
-
     private static JButton exitButton;
-    private static JPanel gridExit;
+    private static JButton submitButton;
 
+    private static JPanel gridExit;
+    private static JPanel panelExit;
 
     private static JPasswordField inputPassword;
-
-    private static JLabel title;
-
-    private static JButton submitButton;
 
     private static JLabel exitLabel;
     private static JLabel  placedCorrectly;
@@ -49,8 +36,8 @@ public class Solver extends JApplet {
     private static JLabel cheatResult;
     private static JLabel lengthCorrect;
     private static JLabel countDown;
+
     private static Timer timer;
-    private static boolean startGame;
 
 
     public static void createAndShowGUI() {
@@ -67,7 +54,6 @@ public class Solver extends JApplet {
         createComponents(frame.getContentPane());
 
         // Display the window.
-//        frame.pack();
         frame.setVisible(true);
     }
 
@@ -80,75 +66,61 @@ public class Solver extends JApplet {
             long endTime = (new Date().getTime() + sec*milliSec);
             public void actionPerformed(ActionEvent e) {
                 long diff = (endTime - new Date().getTime())/1000;
-                if (diff <= 0) {
+                if (diff <= 0) { //Unable to crack the code before timer reaches 0
                     exitLabel.setVisible(true);
                     exitLabel.setText("ACCESS DENIED");
                     disableDecode();
                     exitButton.setVisible(true);
-                    //panelExit.add (gridExit, BorderLayout.CENTER);
                     pane.add(panelExit, BorderLayout.CENTER);
                     ((Timer)e.getSource()).stop();
                 }
-                countDown.setText("Time remaining: " + diff+" ");
+                countDown.setText("Time remaining: " + diff+" "); //display remaining time
                 countDown.repaint();
             }
         });
-
         return timer;
-
     }
 
 
     public static void createComponents(Container p) {
         pane = p;
-        //TODO create JComponent for code cracker
-
-        JPanel panelCenter = new JPanel();
-        panelCenter.setBackground(Color.BLACK);
 
         JPanel panelNorth = new JPanel();
         panelNorth.setBackground(Color.BLACK);
+        panelNorth.setLayout(new BorderLayout());
 
         JPanel panelSouth = new JPanel();
         panelSouth.setBackground(Color.BLACK);
+        panelSouth.setLayout(new BorderLayout());
 
         final JPanel panelNorthNorth = new JPanel();
         panelNorthNorth.setBackground(Color.BLACK);
-
-        JPanel gridNorth = new JPanel();
-        gridNorth.setBackground(Color.BLACK);
-
-        JPanel gridText = new JPanel();
-        gridText.setBackground(Color.BLACK);
+        panelNorthNorth.setLayout(new BorderLayout());
 
         JPanel panelStart = new JPanel();
         panelStart.setBackground(Color.BLACK);
+        panelStart.setLayout(new BorderLayout());
+
+        JPanel gridNorth = new JPanel();
+        gridNorth.setBackground(Color.BLACK);
+        gridNorth.setLayout(new GridLayout());
+
+        JPanel gridText = new JPanel();
+        gridText.setBackground(Color.BLACK);
+        gridText.setLayout(new GridLayout());
+
 
         JPanel gridStart = new JPanel();
         gridStart.setBackground(Color.BLACK);
+        gridStart.setLayout(new GridLayout());
 
         panelExit = new JPanel();
         panelExit.setBackground(Color.BLACK);
+        panelExit.setLayout(new BorderLayout());
 
         gridExit = new JPanel();
         gridExit.setBackground(Color.BLACK);
-
-        panelStart.setLayout(new BorderLayout());
-        gridStart.setLayout(new GridLayout());
-        panelSouth.setLayout(new BorderLayout());
-        panelNorth.setLayout(new BorderLayout());
-        panelExit.setLayout(new BorderLayout());
-        gridNorth.setLayout(new GridLayout());
         gridExit.setLayout(new GridLayout());
-        gridText.setLayout(new GridLayout());
-        panelNorthNorth.setLayout(new BorderLayout());
-        panelCenter.setLayout(new BorderLayout());
-
-        panelCenter.setPreferredSize(new Dimension(50, 50));
-
-//        for (int i  =0 ; i<3; i++){
-//            gridExit.add(new JLabel(""));
-//        }
 
         startButton = new JButton("Start Decoding");
         startButton.addActionListener(new StartListener());
@@ -160,7 +132,6 @@ public class Solver extends JApplet {
         gridStart.setSize(100,100);
         panelStart.add(gridStart, BorderLayout.CENTER);
 
-
         exitLabel = new JLabel("", JLabel.CENTER);
         exitLabel.setPreferredSize(new Dimension(60,60));
         exitLabel.setVisible(false);
@@ -171,33 +142,17 @@ public class Solver extends JApplet {
 
         exitButton = new JButton("Exit");
         exitButton.setVisible(false);
-//        panelNorthNorth.add(exitButton, BorderLayout.SOUTH);
         exitButton.addActionListener(new ExitListener());
         gridExit.setBackground(Color.BLACK);
         gridExit.add(exitButton);
 
         gridExit.setLayout(new GridLayout(3,1));
         gridExit.setSize(100,100);
-        //panelNorth.add(gridExit, BorderLayout.CENTER);
-//        panelExit.add (gridStart, BorderLayout.NORTH);
         panelExit.add (gridExit, BorderLayout.NORTH);
 
-//        startButton = new JButton("Start Decoding");
-//        startButton.addActionListener(new StartListener());
-//        gridStart.setBackground(Color.BLACK);
-//        gridStart.add(startButton);
-//
-//        gridStart.setLayout(new GridLayout(2,1));
-//        gridStart.setSize(100,100);
-//        panelStart.add(gridStart, BorderLayout.NORTH);
-
-        //panelNorthNorth.add(startButton, BorderLayout.CENTER);
         cheatButton = new JButton("Cheat you weakling");
         cheatButton.addActionListener(new CheatListener());
         panelNorthNorth.add(cheatButton, BorderLayout.WEST);
-
-        title = new JLabel("Guess the password you fool!!");
-//        pane.add(title);
 
         countDown = new JLabel ("Time remaining: "+" ", JLabel.CENTER);
         countDown.setFont(new Font("Monospaced", Font.BOLD, 15));
@@ -217,7 +172,6 @@ public class Solver extends JApplet {
         submitButton.setPreferredSize(new Dimension(30,30));
         submitButton.setBackground(Color.RED);
         submitButton.setBackground(Color.BLUE);
-//        submitButton.setOpaque(true);
         submitButton.addActionListener(new SubmitListener());
 
 
@@ -227,15 +181,13 @@ public class Solver extends JApplet {
         for (int i  =0 ; i<2; i++){
             gridNorth.add(new JLabel(""));
         }
-//        gridNorth.add(exitLabel);
-//        gridNorth.add(exitButton);
+
         gridNorth.add(inputPassword);
 
         gridNorth.add(submitButton);
 
         gridNorth.setLayout(new GridLayout(4,3));
         gridNorth.setSize(30,100);
-        //panelNorth.add(gridExit, BorderLayout.CENTER);
         panelNorth.add (gridNorth, BorderLayout.CENTER);
 
         placedCorrectly  = new JLabel("Placed Correctly", JLabel.CENTER);
@@ -265,7 +217,6 @@ public class Solver extends JApplet {
         gridText.setSize(30,100);
 
         panelSouth.add (gridText, BorderLayout.NORTH);
-        // panelNorth.add(gridExit, BorderLayout.CENTER);
 
         pane.add(panelNorth,BorderLayout.NORTH);
         pane.add(panelSouth, BorderLayout.SOUTH);
@@ -350,8 +301,6 @@ public class Solver extends JApplet {
 
     }
 
-
-
     //     Event handler for Solve button */
     private static class SubmitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -368,7 +317,6 @@ public class Solver extends JApplet {
                     exitButton.setVisible(true);
                     pane.add(panelExit, BorderLayout.CENTER);
                     timer.stop();
-//                    System.exit(-1);
                 } else {
 
                     float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
