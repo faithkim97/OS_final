@@ -59,7 +59,7 @@ public class Solver extends JApplet {
 
     public static Timer createTimer() {
         final int milliSec = 1000;
-        final int buffer = 6;
+        final int buffer = 2;
         final int sec = 60+buffer;
 
         timer = new Timer(1 * milliSec, new ActionListener() {
@@ -205,7 +205,7 @@ public class Solver extends JApplet {
 
         drawStartButton(panelStart);
         disableDecode();
-        timer = createTimer();
+//        timer = createTimer();
 
 
         gridText.add(placedCorrectly);
@@ -285,6 +285,7 @@ public class Solver extends JApplet {
 
 
         private void startDecode() {
+            timer = createTimer();
             inputPassword.setVisible(true);
             startButton.setVisible(false);
             submitButton.setEnabled(true);
