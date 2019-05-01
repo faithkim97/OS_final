@@ -39,7 +39,6 @@ public class Solver extends JApplet {
 
     private static Timer timer;
 
-
     public static void createAndShowGUI() {
         // Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -57,24 +56,37 @@ public class Solver extends JApplet {
         frame.setVisible(true);
     }
 
-    public static Timer createTimer() {
-        final int milliSec = 1000;
-        final int buffer = 2;
-        final int sec = 60+buffer;
+    /**
+     * Creates the timer that provides the user with 60 seconds to guess the correct password
+     * @return returns the Timer
+     */
 
-        timer = new Timer(1 * milliSec, new ActionListener() {
-            long endTime = (new Date().getTime() + sec*milliSec);
+    public static Timer createTimer() {
+        final int MILLISEC = 1000;
+        /* added to SECONDS to account for delay from running the start command and unlocking
+        * the buttons and password field*/
+        final int BUFFER = 2;
+        final int SECONDS = 60+BUFFER;
+
+        timer = new Timer(1 * MILLISEC, new ActionListener() {
+            // calculates the time that the game should end based on start time and SECONDS
+            long ENDTIME = (new Date().getTime() + SECONDS*MILLISEC);
+
             public void actionPerformed(ActionEvent e) {
-                long diff = (endTime - new Date().getTime())/1000;
-                if (diff <= 0) { //Unable to crack the code before timer reaches 0
+                // calculates remaining time for game
+                long remainingTime = (ENDTIME - new Date().getTime())/MILLISEC;
+                if (remainingTime <= 0) { //Unable to crack the code before timer reaches 0
                     exitLabel.setVisible(true);
                     exitLabel.setText("ACCESS DENIED");
-                    disableDecode();
+                    exitLabel.setForeground(Color.RED);
+                    exitLabel.setBorder(new LineBorder(Color.RED, 3));
+                    disableDecode(); //disable button functionality
                     exitButton.setVisible(true);
                     pane.add(panelExit, BorderLayout.CENTER);
                     ((Timer)e.getSource()).stop();
                 }
-                countDown.setText("Time remaining: " + diff+" "); //display remaining time
+
+                countDown.setText("Time remaining: " + remainingTime +" "); //display remaining time
                 countDown.repaint();
             }
         });
@@ -122,9 +134,10 @@ public class Solver extends JApplet {
         gridExit.setBackground(Color.BLACK);
         gridExit.setLayout(new GridLayout());
 
+        /* Create the start button */
         startButton = new JButton("Start Decoding");
         startButton.addActionListener(new StartListener());
-
+        /* Add start button to the GUI */
         gridStart.add(startButton);
         gridStart.add(new JLabel(""));
         gridStart.add(new JLabel(""));
@@ -132,33 +145,39 @@ public class Solver extends JApplet {
         gridStart.setSize(100,100);
         panelStart.add(gridStart, BorderLayout.CENTER);
 
+        /* Create exit label - start as empty string that changes based on whether
+         * password is guessed correctly or not */
         exitLabel = new JLabel("", JLabel.CENTER);
         exitLabel.setPreferredSize(new Dimension(60,60));
         exitLabel.setVisible(false);
-        exitLabel.setForeground(Color.RED);
-        exitLabel.setBorder(new LineBorder(Color.RED, 3));
         exitLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         gridExit.add(exitLabel);
-
+        /* Create exit button */
         exitButton = new JButton("Exit");
         exitButton.setVisible(false);
         exitButton.addActionListener(new ExitListener());
         gridExit.setBackground(Color.BLACK);
-        gridExit.add(exitButton);
 
+        /* Add exit button to GUI */
+        gridExit.add(exitButton);
         gridExit.setLayout(new GridLayout(3,1));
         gridExit.setSize(100,100);
         panelExit.add (gridExit, BorderLayout.NORTH);
 
+        /* Create cheat button */
         cheatButton = new JButton("Cheat you weakling");
         cheatButton.addActionListener(new CheatListener());
+        /* Add cheat button to top left corner */
         panelNorthNorth.add(cheatButton, BorderLayout.WEST);
 
+        /* Create time remaining label */
         countDown = new JLabel ("Time remaining: "+" ", JLabel.CENTER);
         countDown.setFont(new Font("Monospaced", Font.BOLD, 15));
         countDown.setForeground(Color.RED);
+        /* Add button to top right corner */
         panelNorthNorth.add(countDown, BorderLayout.EAST);
 
+        /* Create password field for user to input guesses */
         inputPassword = new JPasswordField( 30);
         inputPassword.setPreferredSize(new Dimension(80,80));
         inputPassword.setBackground(Color.BLACK);
@@ -166,70 +185,63 @@ public class Solver extends JApplet {
         inputPassword.setForeground(Color.GREEN);
         inputPassword.setFont(new Font("Verdana", Font.BOLD, 60));
 
-
-
+        /* Create submit button - allows user's input to be evaluated */
         submitButton = new JButton("Submit");
         submitButton.setPreferredSize(new Dimension(30,30));
         submitButton.setBackground(Color.RED);
         submitButton.setBackground(Color.BLUE);
         submitButton.addActionListener(new SubmitListener());
 
-
-
         panelNorth.add(panelNorthNorth, BorderLayout.NORTH);
 
-        for (int i  =0 ; i<2; i++){
-            gridNorth.add(new JLabel(""));
-        }
+        /* To add the input field and submit button to the center of the screen
+        * a grid layout was used; necessary to loop through the grid to get to the
+        * center of the screen */
+        for (int i  =0 ; i<2; i++){ gridNorth.add(new JLabel("")); }
 
         gridNorth.add(inputPassword);
-
         gridNorth.add(submitButton);
 
         gridNorth.setLayout(new GridLayout(4,3));
         gridNorth.setSize(30,100);
         panelNorth.add (gridNorth, BorderLayout.CENTER);
 
-        placedCorrectly  = new JLabel("Placed Correctly", JLabel.CENTER);
+        /* These labels provide "clues" to user for how close they are to the
+        * correct password; they are updated after each try */
+        placedCorrectly  = new JLabel("Percent of Characters Placed Correctly", JLabel.CENTER);
         placedCorrectly.setFont(new Font("Monospaced", Font.BOLD, 15));
         placedCorrectly.setForeground(Color.YELLOW);
-        charsCorrect  = new JLabel("Chars correct:", JLabel.CENTER);
+        charsCorrect  = new JLabel("Percent of Characters Entered Correctly", JLabel.CENTER);
         charsCorrect.setForeground(Color.YELLOW);
         charsCorrect.setFont(new Font("Monospaced", Font.BOLD, 15));
         cheatResult = new JLabel("Cheat Result:", JLabel.CENTER);
         cheatResult.setForeground(Color.RED);
         cheatResult.setFont(new Font("Monospaced", Font.BOLD, 15));
-        lengthCorrect = new JLabel("Length correct: ", JLabel.CENTER);
+        lengthCorrect = new JLabel("Percent of total length", JLabel.CENTER);
         lengthCorrect.setForeground(Color.YELLOW);
         lengthCorrect.setFont(new Font("Monospaced", Font.BOLD, 15));
-
-        drawStartButton(panelStart);
-        disableDecode();
-//        timer = createTimer();
-
 
         gridText.add(placedCorrectly);
         gridText.add(charsCorrect);
         gridText.add(cheatResult);
         gridText.add(lengthCorrect);
+        panelSouth.add (gridText, BorderLayout.NORTH);
 
         gridText.setLayout(new GridLayout(5,3));
         gridText.setSize(30,100);
 
-        panelSouth.add (gridText, BorderLayout.NORTH);
-
+        /* Display the start button and disable functionality of all other components */
+        drawStartButton(panelStart);
+        disableDecode();
+        /* Add components to the GUI pane */
         pane.add(panelNorth,BorderLayout.NORTH);
         pane.add(panelSouth, BorderLayout.SOUTH);
     }
 
-
-
-
-    // Application starts here
+    /** Application starts here */
     public static void main(String[] args) {
-
-
-        genPass = new GenPass();
+        genPass = new GenPass(); //generate a random password from built in dictionary to be guessed by user
+        // will check all input passwords against the generated password and return data used in the clues
         codeChecker = new CodeChecker(genPass.getPassword());
 
         // Schedule a job for the event-dispatching thread:
@@ -237,8 +249,6 @@ public class Solver extends JApplet {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
-
-
             }
         });
 
@@ -258,16 +268,24 @@ public class Solver extends JApplet {
             System.err.println("createGUI didn't successfully complete");
         }
     }
+    /** Event handler for cheat button
+     *  Displays the computer's closest guess to the user
+     */
     private static class CheatListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Cheater cheater = new Cheater(codeChecker);
-            String cheatPassword = cheater.doCheat();
-            cheatResult.setText("Loser. Here's a hint for you: " + cheatPassword);
+            String cheatPassword = cheater.doCheat(); // provides the computer's guess for the password
+            cheatResult.setText("Loser. Here's a hint for you: " + cheatPassword); //display cheat password to user
         }
     }
+
+    /** Displays the start button in the center of the screen */
     private static void drawStartButton(JPanel startPanel){
         pane.add(startPanel, BorderLayout.CENTER);
     }
+    /** Disable the functionality of all game buttons
+     *  Disabled buttons: password field; submit button; cheat button
+     * */
     private static void disableDecode() {
         inputPassword.setVisible(false);
         inputPassword.setEnabled(false);
@@ -276,14 +294,18 @@ public class Solver extends JApplet {
         cheatButton.setEnabled(false);
     }
 
+    /** Event handler for start button
+     *  Starts the timer once start has been clicked
+     */
     private static class StartListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             startDecode();
             timer.start();
         }
-
-
-
+        /**
+         * Enables buttons that had been disabled prior
+         * Enabled buttons: input field; submit button
+         */
         private void startDecode() {
             timer = createTimer();
             inputPassword.setVisible(true);
@@ -299,15 +321,16 @@ public class Solver extends JApplet {
         public void actionPerformed(ActionEvent e) {
             System.exit(-1);
         }
-
     }
 
-    //     Event handler for Solve button */
+    /* Event handler for Solve button */
     private static class SubmitListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (inputPassword.getPassword() != null) {
+                //decode purposes: displays correct password on command line
                 System.out.println("real password: " + genPass.getPassword());
                 char[] input = inputPassword.getPassword();
+                /* The user's input matches the correct/generated password */
                 if (codeChecker.checkPassword(input)) {
                     submitButton.setEnabled(false);
                     exitLabel.setText("ACCESS GRANTED");
@@ -318,22 +341,25 @@ public class Solver extends JApplet {
                     exitButton.setVisible(true);
                     pane.add(panelExit, BorderLayout.CENTER);
                     timer.stop();
-                } else {
-
+                }
+                /* User's input does not match the correct password; provide feedback based on their guess */
+                else {
                     float percentLengthCorrect = codeChecker.percentageCorrectLength(input);
-                    lengthCorrect.setText(percentLengthCorrect > -1 ? "Your input length is " + percentLengthCorrect +"% of the length of the correct password." :
+                    lengthCorrect.setText(percentLengthCorrect > -1 ? "Your input length is " +
+                            percentLengthCorrect +"% of the length of the correct password." :
                             "Your length is too long");
+                    placedCorrectly.setText("Percent of Characters Placed Correctly");
+                    charsCorrect.setText("Percent of Characters Entered Correctly");
+
+                    /* Only provide feedback on correct chars and placement if the input len == correct password len */
                     if (codeChecker.inputLengthMatchesPasswordLength(input)) {
                         float percentPlacedCorrect = codeChecker.percentagePlacedCorrectly(input);
                         float percentCorrectInput = codeChecker.percentageCorrectInput(input);
                         placedCorrectly.setText("You have placed "+percentPlacedCorrect+"% of characters correctly!\n");
                         charsCorrect.setText("You have input " + percentCorrectInput+ "% of characters correctly!\n");
-
                     }
-
                 }
             }
         }
     }
-
-}
+} // end Solver
